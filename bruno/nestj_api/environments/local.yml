@@ -2,7 +2,7 @@ name: local
 variables:
   - name: useId
     value: ""
-  - name: taskId
-    value: ""
   - name: token
-    value: gzu1zDdPAJW7cj9aHWBj2jlJ9lKCdyfa
+    value: EE7IXl5Zq1oz42QHJetiUHz3SC8uHqaG
+  - name: taskId
+    value: cmuwtv6ne00031ow7shya9lh0
