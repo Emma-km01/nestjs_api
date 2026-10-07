@@ -1,0 +1,11 @@
+name: local
+variables:
+  - name: userId
+    value: ""
+    description: ""
+  - name: taskId
+    value: ""
+    description: ""
+  - name: token
+    value: ""
+    description: ""
