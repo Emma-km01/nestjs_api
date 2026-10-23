@@ -1,23 +1,25 @@
-FROM oven/bun:1
-WORKDIR /app
+FROM node:22
 
-# openssl : requis par Prisma
-RUN apt-get update -y && \
-    apt-get install -y openssl && \
-    rm -rf /var/lib/apt/lists/*
+WORKDIR /src
 
-# dépendances (copiées avant le code pour profiter du cache)
-COPY package.json bun.lock* ./
-RUN bun install --frozen-lockfile --ignore-scripts
+# Installer Bun (absent par défaut des images Node)
+RUN npm install -g bun
 
-# code source
+# Copier les fichiers de dépendances en premier (cache Docker)
+COPY package.json bun.lock ./
+
+# Installer les dépendances
+RUN bun install --ignore-scripts
+
+# Copier le reste du code source
 COPY . .
 
-# client Prisma + compilation NestJS
-RUN bunx prisma generate
+# Générer le client Prisma (nécessaire avant le build)
+RUN bun run db:generate
+
+# Construire le projet
 RUN bun run build
 
 EXPOSE 3000
 
-# démarrage de l'application
-CMD ["bun", "dist/src/main.js"]
+CMD ["bun", "run", "start"]

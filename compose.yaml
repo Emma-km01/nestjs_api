@@ -1,5 +1,9 @@
 services:
-  app:
-    build: .
+  api:
+    image: saumon
     ports:
       - "3000:3000"
+    env_file:
+      - .env.docker
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

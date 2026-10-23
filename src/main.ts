@@ -10,6 +10,7 @@ async function bootstrap() {
 	app.useLogger(app.get(Logger));
 	app.use(helmet());
 	app.useGlobalPipes(new ZodValidationPipe());
+	app.enableCors({ origin: 'http://localhost:5173', credentials: true });
 
 	const config = new DocumentBuilder()
 		.setTitle('NexaFood API')
