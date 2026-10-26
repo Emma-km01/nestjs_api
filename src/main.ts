@@ -4,13 +4,14 @@ import helmet from 'helmet';
 import { Logger } from 'nestjs-pino';
 import { ZodValidationPipe } from 'nestjs-zod';
 import { AppModule } from './app.module.js';
+import { origines } from './config/origins.js';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule, { bufferLogs: true });
 	app.useLogger(app.get(Logger));
 	app.use(helmet());
 	app.useGlobalPipes(new ZodValidationPipe());
-	app.enableCors({ origin: 'http://localhost:5173', credentials: true });
+	app.enableCors({ origin: origines, credentials: true });
 
 	const config = new DocumentBuilder()
 		.setTitle('NexaFood API')
